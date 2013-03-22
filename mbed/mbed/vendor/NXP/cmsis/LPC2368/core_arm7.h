@@ -235,8 +235,8 @@ static __INLINE void __restore_irq(unsigned long old) {
                          "bic %0, %0, #0x80\n"
                          "orr %0, %0, %1\n"
                          "msr cpsr_c, %0"
-                         : "=r" (temp), "=r"(old)
-                         :
+                         : "=r" (temp)
+                         : "r"(old)
                          : "memory");
 }
 
