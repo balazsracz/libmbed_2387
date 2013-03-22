@@ -65,7 +65,7 @@ typedef enum IRQn
 #define __Vendor_SysTickConfig    0         /*!< Set to 1 if different SysTick Config is used     */
 
 
-#include <core_arm7.h>
+#include "core_arm7.h"
 #include "system_LPC23xx.h"                 /* System Header                                      */
 
 

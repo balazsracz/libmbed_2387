@@ -708,7 +708,7 @@ void USBDevice::connect(void)
     /* Connect device */
     USBHAL::connect();
     /* Block if not configured */
-    while (!configured());
+    //while (!configured());
 }
 
 void USBDevice::disconnect(void)

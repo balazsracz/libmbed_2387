@@ -13,6 +13,14 @@
 						<entry flags="BUILTIN|READONLY|RESOLVED" kind="includePath" name="/usr/local/lpcxpresso_5.1.2_2065/lpcxpresso/tools/lib/gcc/arm-none-eabi/4.6.2/include"/>
 						<entry flags="BUILTIN|READONLY|RESOLVED" kind="includePath" name="/usr/local/lpcxpresso_5.1.2_2065/lpcxpresso/tools/arm-none-eabi/include/c++/4.6.2/backward"/>
 						<entry flags="BUILTIN|READONLY|RESOLVED" kind="includePath" name="/usr/local/lpcxpresso_5.1.2_2065/lpcxpresso/tools/arm-none-eabi/include/c++/4.6.2/arm-none-eabi"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="includePath" name="/libmbed_2387/mbed/mbed/cpp"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="includePath" name="/libmbed_2387/mbed/mbed/vendor/NXP/capi"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="includePath" name="/libmbed_2387/mbed/mbed/vendor/NXP/capi/LPC2368"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="includePath" name="/libmbed_2387/mbed/mbed/vendor/NXP/cmsis/LPC2368"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="includePath" name="/libmbed_2387/mbed/USBDevice/USBDevice"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="includePath" name="/libmbed_2387/mbed/USBDevice/USBSerial"/>
+						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="includePath" name="/libmbed_2387/mbed/mbed/capi"/>
+						<entry flags="RESOLVED" kind="macro" name="TARGET_LPC2368" value=""/>
 						<entry flags="VALUE_WORKSPACE_PATH" kind="libraryPath" name="/libmbed_2387/Debug"/>
 						<entry flags="RESOLVED" kind="libraryFile" name="libmbed_2387" srcPrefixMapping="" srcRootPath=""/>
 					</externalSetting>
@@ -38,16 +46,17 @@
 									<listOptionValue builtIn="false" value="__NEWLIB__"/>
 									<listOptionValue builtIn="false" value="DEBUG"/>
 									<listOptionValue builtIn="false" value="__CODE_RED"/>
+									<listOptionValue builtIn="false" value="TARGET_LPC2368"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.969789740" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.include.paths.1893487219" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:${build_project}/mbed/mbed/capi}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:${build_project}/mbed/USBDevice/USBSerial}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:${build_project}/mbed/USBDevice/USBDevice}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:${build_project}/mbed/mbed/vendor/NXP/cmsis/LPC2368}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/$(build_project}/mbed/mbed/vendor/NXP/capi/LPC2368}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:${build_project}/mbed/mbed/vendor/NXP/capi}&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${workspace_loc:${build_project}/mbed/mbed/cpp}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/mbed/capi}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/USBDevice/USBSerial}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/USBDevice/USBDevice}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/mbed/vendor/NXP/cmsis/LPC2368}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/mbed/vendor/NXP/capi/LPC2368}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/mbed/vendor/NXP/capi}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/mbed/cpp}&quot;"/>
 								</option>
 								<inputType id="com.crt.advproject.compiler.cpp.input.971684684" superClass="com.crt.advproject.compiler.cpp.input"/>
 							</tool>
@@ -57,29 +66,30 @@
 									<listOptionValue builtIn="false" value="__NEWLIB__"/>
 									<listOptionValue builtIn="false" value="DEBUG"/>
 									<listOptionValue builtIn="false" value="__CODE_RED"/>
+									<listOptionValue builtIn="false" value="TARGET_LPC2368"/>
 								</option>
 								<option id="gnu.c.compiler.option.misc.other.1676568701" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections" valueType="string"/>
 								<option id="gnu.c.compiler.option.include.paths.1775763029" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${build_project}/mbed/mbed/capi&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${build_project}/mbed/mbed/cpp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${build_project}/mbed/mbed/vendor/NXP/capi&quot;"/>
-									<listOptionValue builtIn="false" value="../$(build_project}/mbed/mbed/vendor/NXP/capi/LPC2368"/>
-									<listOptionValue builtIn="false" value="&quot;${build_project}/mbed/mbed/vendor/NXP/cmsis/LPC2368&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${build_project}/mbed/USBDevice/USBDevice&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${build_project}/mbed/USBDevice/USBSerial&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/mbed/capi}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/USBDevice/USBSerial}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/USBDevice/USBDevice}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/mbed/vendor/NXP/cmsis/LPC2368}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/mbed/vendor/NXP/capi/LPC2368}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/mbed/vendor/NXP/capi}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/mbed/cpp}&quot;"/>
 								</option>
 								<inputType id="com.crt.advproject.compiler.input.746734970" superClass="com.crt.advproject.compiler.input"/>
 							</tool>
 							<tool id="com.crt.advproject.gas.lib.debug.730721684" name="MCU Assembler" superClass="com.crt.advproject.gas.lib.debug">
 								<option id="gnu.both.asm.option.flags.crt.281439710" name="Assembler flags" superClass="gnu.both.asm.option.flags.crt" value="-c -x assembler-with-cpp -D__REDLIB__ -DDEBUG -D__CODE_RED" valueType="string"/>
 								<option id="gnu.both.asm.option.include.paths.1490426695" name="Include paths (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;${build_project}/mbed/mbed/capi&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${build_project}/mbed/mbed/cpp&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${build_project}/mbed/mbed/vendor/NXP/capi&quot;"/>
-									<listOptionValue builtIn="false" value="../$(build_project}/mbed/mbed/vendor/NXP/capi/LPC2368"/>
-									<listOptionValue builtIn="false" value="&quot;${build_project}/mbed/mbed/vendor/NXP/cmsis/LPC2368&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${build_project}/mbed/USBDevice/USBDevice&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;${build_project}/mbed/USBDevice/USBSerial&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/mbed/capi}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/USBDevice/USBSerial}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/USBDevice/USBDevice}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/mbed/vendor/NXP/cmsis/LPC2368}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/mbed/vendor/NXP/capi/LPC2368}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/mbed/vendor/NXP/capi}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/libmbed_2387/mbed/mbed/cpp}&quot;"/>
 								</option>
 								<inputType id="cdt.managedbuild.tool.gnu.assembler.input.1582465638" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 								<inputType id="com.crt.advproject.assembler.input.1142549178" name="Additional Assembly Source Files" superClass="com.crt.advproject.assembler.input"/>
@@ -124,6 +134,7 @@
 									<listOptionValue builtIn="false" value="__NEWLIB__"/>
 									<listOptionValue builtIn="false" value="NDEBUG"/>
 									<listOptionValue builtIn="false" value="__CODE_RED"/>
+									<listOptionValue builtIn="false" value="TARGET_LPC2368"/>
 								</option>
 								<option id="gnu.cpp.compiler.option.other.other.377376189" name="Other flags" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections -fno-rtti -fno-exceptions" valueType="string"/>
 								<option id="gnu.cpp.compiler.option.optimization.flags.643842572" name="Other optimization flags" superClass="gnu.cpp.compiler.option.optimization.flags" value="-Os" valueType="string"/>
@@ -144,6 +155,7 @@
 									<listOptionValue builtIn="false" value="__NEWLIB__"/>
 									<listOptionValue builtIn="false" value="NDEBUG"/>
 									<listOptionValue builtIn="false" value="__CODE_RED"/>
+									<listOptionValue builtIn="false" value="TARGET_LPC2368"/>
 								</option>
 								<option id="gnu.c.compiler.option.misc.other.1395822218" name="Other flags" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -fno-builtin -ffunction-sections -fdata-sections" valueType="string"/>
 								<option id="gnu.c.compiler.option.include.paths.2064135233" name="Include paths (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
@@ -258,4 +270,5 @@
 			<autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="com.crt.advproject.GCCManagedMakePerProjectProfileCPP"/>
 		</scannerConfigBuildInfo>
 	</storageModule>
+	<storageModule moduleId="refreshScope"/>
 </cproject>

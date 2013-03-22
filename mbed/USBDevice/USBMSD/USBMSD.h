@@ -20,6 +20,8 @@
 #ifndef USBMSD_H
 #define USBMSD_H
 
+#define __packed __attribute__((__packed__))
+
 /* These headers are included for child class. */
 #include "USBEndpoints.h"
 #include "USBDescriptor.h"
@@ -176,7 +178,7 @@ private:
     };
 
     // Bulk-only CBW
-    typedef __packed struct {
+    typedef struct {
         uint32_t Signature;
         uint32_t Tag;
         uint32_t DataLength;
@@ -184,15 +186,15 @@ private:
         uint8_t  LUN;
         uint8_t  CBLength;
         uint8_t  CB[16];
-    } CBW;
+    } __packed  CBW;
 
     // Bulk-only CSW
-    typedef __packed struct {
+    typedef  struct {
         uint32_t Signature;
         uint32_t Tag;
         uint32_t DataResidue;
         uint8_t  Status;
-    } CSW;
+    } __packed CSW;
 
     //state of the bulk-only state machine
     Stage stage;

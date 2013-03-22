@@ -365,7 +365,7 @@ USBHAL::USBHAL(void) {
 
     // Enable USB clocks
     LPC_USB->USBClkCtrl |= DEV_CLK_EN | AHB_CLK_EN;
-    while (LPC_USB->USBClkSt != (DEV_CLK_ON | AHB_CLK_ON));
+    while ((LPC_USB->USBClkSt & (DEV_CLK_ON | AHB_CLK_ON)) != (DEV_CLK_ON | AHB_CLK_ON));
 
     // Configure pins P0.29 and P0.30 to be USB D+ and USB D-
     LPC_PINCON->PINSEL1 &= 0xc3ffffff;

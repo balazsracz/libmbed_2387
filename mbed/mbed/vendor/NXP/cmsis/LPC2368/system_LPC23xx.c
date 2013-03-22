@@ -145,5 +145,18 @@ void SystemInit (void)
   LPC_SC->MAMTIM      = MAMTIM_Val;
   LPC_SC->MAMCR       = MAMCR_Val;
   
+
+  // Setup in-memory interrupt vectors
+  int* ram_vector_start = (int*)(0x40000000);
+  int* flash_vector_start = (int*)(0x5000);
+  int* flash_vector_end = flash_vector_start + 16;
+  while (flash_vector_start < flash_vector_end) {
+    *ram_vector_start++ = *flash_vector_start++;
+  }
+  // Remaps vectors to static ram.
+  LPC_SC->MEMMAP &= ~0x3;
+  LPC_SC->MEMMAP |= 0x2;
+
+
   stdio_retargeting_module = 1;
 }
