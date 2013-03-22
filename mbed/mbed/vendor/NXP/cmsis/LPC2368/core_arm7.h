@@ -204,12 +204,40 @@ static __INLINE void __enable_irq() {
 static __INLINE void __disable_irq() {
     unsigned long old,temp;
     __asm__ __volatile__("mrs %0, cpsr\n"
+                         "and %1, %0, #0x80\n"
+                         "1:"
+                         "teq %1, #0x80\n"
+                         "beq 1b\n"
                          "orr %1, %0, #0xc0\n"
                          "msr cpsr_c, %1"
                          : "=r" (old), "=r" (temp)
                          :
                          : "memory");
     // return (old & 0x80) == 0;
+}
+
+static __INLINE unsigned long __save_and_disable_irq() {
+    unsigned long old,temp;
+    __asm__ __volatile__("mrs %0, cpsr\n"
+                         "orr %1, %0, #0xc0\n"
+                         "and %0, %0, #0x80\n"
+                         "msr cpsr_c, %1"
+                         : "=r" (old), "=r" (temp)
+                         :
+                         : "memory");
+    return old;
+    // return (old & 0x80) == 0;
+}
+
+static __INLINE void __restore_irq(unsigned long old) {
+    unsigned long temp;
+    __asm__ __volatile__("mrs %0, cpsr\n"
+                         "bic %0, %0, #0x80\n"
+                         "orr %0, %0, %1\n"
+                         "msr cpsr_c, %0"
+                         : "=r" (temp), "=r"(old)
+                         :
+                         : "memory");
 }
 
 static __INLINE void __NOP()                      { __ASM volatile ("nop"); }

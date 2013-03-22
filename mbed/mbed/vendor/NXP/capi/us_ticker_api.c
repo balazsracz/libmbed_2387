@@ -116,7 +116,7 @@ void us_ticker_set_handler(ticker_event_handler handler) {
 
 void us_ticker_insert_event(ticker_event_t *obj, unsigned int timestamp, uint32_t id) {
     /* disable interrupts for the duration of the function */
-    __disable_irq();
+    unsigned long is = __save_and_disable_irq();
 
     // initialise our data
     obj->timestamp = timestamp;
@@ -145,11 +145,11 @@ void us_ticker_insert_event(ticker_event_t *obj, unsigned int timestamp, uint32_
     /* if we're at the end p will be NULL, which is correct */
     obj->next = p;
 
-    __enable_irq();
+    __restore_irq(is);
 }
 
 void us_ticker_remove_event(ticker_event_t *obj) {
-    __disable_irq();
+    unsigned long is = __save_and_disable_irq();
 
     // remove this object from the list
     if (head == obj) { // first in the list, so just drop me
@@ -168,5 +168,5 @@ void us_ticker_remove_event(ticker_event_t *obj) {
         }
     }
 
-    __enable_irq();
+    __restore_irq(is);
 }
