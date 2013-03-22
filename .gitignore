@@ -1,0 +1,18 @@
+# Build artifacts of code red suite
+Debug/
+Release/
+# Autosave files
+*~
+# Compiled Object files
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
