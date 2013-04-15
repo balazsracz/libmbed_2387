@@ -30,7 +30,7 @@ extern "C" {
 
 typedef struct can_s can_t;
 
-void          can_init     (can_t *obj, PinName rd, PinName td);
+void          mbed_can_init(can_t *obj, PinName rd, PinName td);
 void          can_free     (can_t *obj);
 int           can_frequency(can_t *obj, int hz);
 int           can_write    (can_t *obj, CAN_Message, int cc);

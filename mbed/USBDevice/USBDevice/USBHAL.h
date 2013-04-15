@@ -99,7 +99,7 @@ protected:
     
 private:
     void usbisr(void);
-    static void _usbisr(void);
+    static void _usbisr(void) INTERRUPT_ATTRIBUTE;
     static USBHAL * instance;
 
 #if defined(TARGET_LPC11U24)

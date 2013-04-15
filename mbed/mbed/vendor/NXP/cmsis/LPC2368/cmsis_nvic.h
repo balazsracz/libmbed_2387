@@ -13,6 +13,10 @@
 extern "C" {
 #endif
 
+#ifndef INTERRUPT_ATTRIBUTE
+#define INTERRUPT_ATTRIBUTE __attribute__((__interrupt__("IRQ")))
+#endif
+
 void NVIC_SetVector(IRQn_Type IRQn, uint32_t vector);
 uint32_t NVIC_GetVector(IRQn_Type IRQn);
 

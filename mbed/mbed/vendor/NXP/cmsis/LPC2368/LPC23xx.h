@@ -4,8 +4,8 @@
  * An LPC23xx header file, based on the CMSIS LPC17xx.h and old LPC23xx.h
  */
 
-#ifndef __LPC23xx_H
-#define __LPC23xx_H
+#ifndef __CMSIS_LPC23xx_H
+#define __CMSIS_LPC23xx_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -860,5 +860,5 @@ typedef struct
  }
 #endif 
 
-#endif  // __LPC23xx_H
+#endif  // __CMSIS_LPC23xx_H
 

@@ -22,7 +22,7 @@
 namespace mbed {
 
 CAN::CAN(PinName rd, PinName td) {
-    can_init(&_can, rd, td);
+    mbed_can_init(&_can, rd, td);
 }
 
 CAN::~CAN() {
@@ -58,6 +58,8 @@ void CAN::monitor(bool silent) {
 }
 
 static FunctionPointer* can_obj[2] = { NULL };
+
+void can_irq(void) INTERRUPT_ATTRIBUTE;
 
 // Have to check that the CAN block is active before reading the Interrupt
 // Control Register, or the mbed hangs
