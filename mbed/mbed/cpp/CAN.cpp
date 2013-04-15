@@ -80,7 +80,9 @@ void can_irq(void) {
             can_obj[1]->call();
         }
     }
-
+#ifdef INTERRUPT_ACK
+    LPC_VIC->Address = 0;
+#endif
 }
 
 void CAN::setup_interrupt(void) {
@@ -89,7 +91,7 @@ void CAN::setup_interrupt(void) {
         case CAN_2: can_obj[1] = &_rxirq; break;
     }
     _can.dev->MOD |= 1;
-    _can.dev->IER |= 1;
+    _can.dev->IER |= 3;  // TODO(bracz) select whether TXIRQ is enabled or not.
     _can.dev->MOD &= ~1;
     NVIC_SetVector(CAN_IRQn, (uint32_t) &can_irq);
     NVIC_EnableIRQ(CAN_IRQn);
@@ -101,7 +103,7 @@ void CAN::remove_interrupt(void) {
         case CAN_2: can_obj[1] = NULL; break;
     }
 
-    _can.dev->IER &= ~(1);
+    _can.dev->IER &= ~(3);
     if ((can_obj[0] == NULL) && (can_obj[1] == NULL)) {
         NVIC_DisableIRQ(CAN_IRQn);
     }
