@@ -191,7 +191,7 @@ typedef struct
 
 #elif (defined (__GNUC__)) /*------------------ GNU Compiler ---------------------*/
 
-static __INLINE void __enable_irq() {
+static __INLINE void __enable_irq(void) {
     unsigned long temp;
     __asm__ __volatile__("mrs %0, cpsr\n"
                          "bic %0, %0, #0x80\n"
@@ -201,7 +201,7 @@ static __INLINE void __enable_irq() {
                          : "memory");
 }
 
-static __INLINE void __disable_irq() {
+static __INLINE void __disable_irq(void) {
     unsigned long old,temp;
     __asm__ __volatile__("mrs %0, cpsr\n"
                          "and %1, %0, #0x80\n"
@@ -216,7 +216,7 @@ static __INLINE void __disable_irq() {
     // return (old & 0x80) == 0;
 }
 
-static __INLINE unsigned long __save_and_disable_irq() {
+static __INLINE unsigned long __save_and_disable_irq(void) {
     unsigned long old,temp;
     __asm__ __volatile__("mrs %0, cpsr\n"
                          "orr %1, %0, #0xc0\n"
@@ -240,7 +240,7 @@ static __INLINE void __restore_irq(unsigned long old) {
                          : "memory");
 }
 
-static __INLINE void __NOP()                      { __ASM volatile ("nop"); }
+static __INLINE void __NOP(void)                      { __ASM volatile ("nop"); }
 
 #elif (defined (__TASKING__)) /*------------------ TASKING Compiler ---------------------*/
 /* TASKING carm specific functions */
