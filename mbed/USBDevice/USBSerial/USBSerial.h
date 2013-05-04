@@ -55,7 +55,7 @@ public:
     * @param product_release Your preoduct_release (default: 0x0001)
     *
     */
-    USBSerial(uint16_t vendor_id = 0x1f00, uint16_t product_id = 0x2012, uint16_t product_release = 0x0001): USBCDC(vendor_id, product_id, product_release), buf(128){ };
+    USBSerial(uint16_t vendor_id = 0x1f00, uint16_t product_id = 0x2012, uint16_t product_release = 0x0001): USBCDC(vendor_id, product_id, product_release), buf(128) { };
 
 
     /**
@@ -93,6 +93,19 @@ public:
     bool writeBlock(uint8_t * buf, uint16_t size);
 
     /**
+    * Write a block of data asynchronously. 
+    *
+    * For more efficiency, a block of size 64 (maximum size of a bulk endpoint) has to be written.
+    * The caller is repsonsible not to invoke any write (and _putc) command until the tx callback has been called.
+    *
+    * @param buf pointer on data which will be written
+    * @param size size of the buffer. The maximum size of a block is limited by the size of the endpoint (64 bytes)
+    *
+    * @returns true if successful (transfer is pending).
+    */
+    bool writeBlockAsync(uint8_t * buf, uint16_t size);
+
+    /**
      *  Attach a member function to call when a packet is received. 
      *
      *  @param tptr pointer to the object to call the member function on
@@ -116,12 +129,37 @@ public:
         }
     }
 
+    /**
+     *  Attach a member function to call when the last packet finished sending. 
+     *
+     *  @param tptr pointer to the object to call the member function on
+     *  @param mptr pointer to the member function to be called
+     */
+    template<typename T>
+    void txattach(T* tptr, void (T::*mptr)(void)) {
+        if((mptr != NULL) && (tptr != NULL)) {
+            tx.attach(tptr, mptr);
+        }
+    }
+
+    /**
+     * Attach a callback called when the last packet finished sending.
+     *
+     * @param fptr function pointer
+     */
+    void txattach(void (*fn)(void)) {
+        if(fn != NULL) {
+            tx.attach(fn);
+        }
+    }
 
 protected:
     virtual bool EP2_OUT_callback();
+    virtual bool EP2_IN_callback();
 
 private:
     FunctionPointer rx;
+    FunctionPointer tx;
     CircBuffer<uint8_t> buf;
 };
 

@@ -94,6 +94,12 @@ bool USBCDC::send(uint8_t * buffer, uint32_t size) {
     return USBDevice::write(EPBULK_IN, buffer, size, MAX_CDC_REPORT_SIZE);
 }
 
+// Returns false if packet was not sent. Returns true if packet send is
+// completed. Returns false if packet is pending.
+bool USBCDC::sendNB(uint8_t * buffer, uint32_t size) {
+    return USBDevice::writeNB(EPBULK_IN, buffer, size, MAX_CDC_REPORT_SIZE);
+}
+
 bool USBCDC::readEP(uint8_t * buffer, uint32_t * size) {
     if (!USBDevice::readEP(EPBULK_OUT, buffer, size, MAX_CDC_REPORT_SIZE))
         return false;

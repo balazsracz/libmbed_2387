@@ -44,7 +44,15 @@ bool USBSerial::writeBlock(uint8_t * buf, uint16_t size) {
     return true;
 }
 
-
+bool USBSerial::writeBlockAsync(uint8_t * buf, uint16_t size) {
+    if(size > MAX_PACKET_SIZE_EPBULK) {
+        return false;
+    }
+    if (!configured()) return false;
+    if (!terminal_connected) return false;
+    sendNB(buf, size);
+    return true;
+}
 
 bool USBSerial::EP2_OUT_callback() {
     uint8_t c[65];
@@ -61,6 +69,12 @@ bool USBSerial::EP2_OUT_callback() {
 
     // We reactivate the endpoint to receive next characters
     readStart(EPBULK_OUT, MAX_PACKET_SIZE_EPBULK);
+    return true;
+}
+
+bool USBSerial::EP2_IN_callback() {
+    //call a potential handler
+    tx.call();
     return true;
 }
 

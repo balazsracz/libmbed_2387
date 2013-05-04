@@ -71,12 +71,21 @@ protected:
     /*
     * Send a buffer
     *
-    * @param endpoint endpoint which will be sent the buffer
     * @param buffer buffer to be sent
     * @param size length of the buffer
     * @returns true if successful
     */
     bool send(uint8_t * buffer, uint32_t size);
+
+    /*
+    * Send a buffer
+    *
+    * @param buffer buffer to be sent
+    * @param size length of the buffer
+    * @returns false if packet was not sent. Returns true if packet send is
+    * completed. Returns false if packet is pending.
+    */
+    bool sendNB(uint8_t * buffer, uint32_t size);
     
     /*
     * Read a buffer from a certain endpoint. Warning: blocking
