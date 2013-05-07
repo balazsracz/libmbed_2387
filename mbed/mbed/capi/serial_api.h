@@ -41,7 +41,7 @@ typedef void (*uart_irq_handler)(uint32_t id, SerialIrq event);
 
 typedef struct serial_s serial_t;
 
-void serial_init       (serial_t *obj, PinName tx, PinName rx);
+void mbed_serial_init       (serial_t *obj, PinName tx, PinName rx);
 void serial_free       (serial_t *obj);
 void serial_baud       (serial_t *obj, int baudrate);
 void serial_format     (serial_t *obj, int data_bits, SerialParity parity, int stop_bits);

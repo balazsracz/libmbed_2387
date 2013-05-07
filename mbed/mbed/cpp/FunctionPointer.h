@@ -64,6 +64,10 @@ public:
      */
     void call();
 
+    bool empty() {
+	return !(_function || _object);
+    }
+
 private:
     template<typename T>
     static void membercaller(void *object, char *member) {

@@ -549,6 +549,9 @@ void USBHAL::remoteWakeup(void) {
 
 void USBHAL::_usbisr(void) {
     instance->usbisr();
+#ifdef INTERRUPT_ACK
+    LPC_VIC->Address = 0;
+#endif
 }
 
 

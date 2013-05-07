@@ -75,7 +75,7 @@ bool USBSerial::EP2_OUT_callback() {
 bool USBSerial::EP2_IN_callback() {
     //call a potential handler
     tx.call();
-    return true;
+    return !tx.empty();
 }
 
 uint8_t USBSerial::available() {

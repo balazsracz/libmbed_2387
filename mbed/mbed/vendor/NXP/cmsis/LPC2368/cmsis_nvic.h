@@ -14,6 +14,7 @@ extern "C" {
 #endif
 
 #ifndef INTERRUPT_ATTRIBUTE
+//#define INTERRUPT_ATTRIBUTE
 #define INTERRUPT_ATTRIBUTE __attribute__((__interrupt__("IRQ")))
 #define INTERRUPT_ACK 1
 #endif
