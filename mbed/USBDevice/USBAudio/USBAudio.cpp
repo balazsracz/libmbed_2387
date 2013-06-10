@@ -500,8 +500,8 @@ uint8_t * USBAudio::configurationDesc() {
         16,                                     // bBitResolution
         0x01,                                   // bSamFreqType
         LSB(FREQ_IN),                           // tSamFreq
-        (FREQ_IN >> 8) & 0xff,                  // tSamFreq
-        (FREQ_IN >> 16) & 0xff,                 // tSamFreq
+        (uint8_t)((FREQ_IN >> 8) & 0xff),       // tSamFreq
+        (uint8_t)((FREQ_IN >> 16) & 0xff),      // tSamFreq
 
         // Endpoint - Standard Descriptor
         ENDPOINT_DESCRIPTOR_LENGTH + 2,         // bLength
@@ -570,8 +570,8 @@ uint8_t * USBAudio::configurationDesc() {
         0x10,                                   // bBitResolution
         0x01,                                   // bSamFreqType
         LSB(FREQ_OUT),                          // tSamFreq
-        (FREQ_OUT >> 8) & 0xff,                 // tSamFreq
-        (FREQ_OUT >> 16) & 0xff,                // tSamFreq
+        (uint8_t)((FREQ_OUT >> 8) & 0xff),      // tSamFreq
+        (uint8_t)((FREQ_OUT >> 16) & 0xff),     // tSamFreq
 
         // Endpoint - Standard Descriptor
         ENDPOINT_DESCRIPTOR_LENGTH + 2,         // bLength

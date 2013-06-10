@@ -376,7 +376,7 @@ static inline int rinc(int idx, int mod) {
 }
 
 //extern unsigned int SystemFrequency;
-static inline unsigned int clockselect() {
+static inline unsigned int clockselect(void) {
   if(SystemCoreClock < 10000000) {
     return 1;
   } else if(SystemCoreClock <  15000000) {

@@ -288,13 +288,13 @@ static inline void uart_irq(uint32_t iir, uint32_t index) {
 }
 
 #if defined(TARGET_LPC1768) || defined(TARGET_LPC2368)
-void uart0_irq() {uart_irq(LPC_UART0->IIR, 0);}
-void uart1_irq() {uart_irq(LPC_UART1->IIR, 1);}
-void uart2_irq() {uart_irq(LPC_UART2->IIR, 2);}
-void uart3_irq() {uart_irq(LPC_UART3->IIR, 3);}
+void uart0_irq(void) {uart_irq(LPC_UART0->IIR, 0);}
+void uart1_irq(void) {uart_irq(LPC_UART1->IIR, 1);}
+void uart2_irq(void) {uart_irq(LPC_UART2->IIR, 2);}
+void uart3_irq(void) {uart_irq(LPC_UART3->IIR, 3);}
 
 #elif defined(TARGET_LPC11U24)
-void uart0_irq() {uart_irq(LPC_USART->IIR, 0);}
+void uart0_irq(void) {uart_irq(LPC_USART->IIR, 0);}
 #endif
 
 void serial_irq_handler(serial_t *obj, uart_irq_handler handler, uint32_t id) {

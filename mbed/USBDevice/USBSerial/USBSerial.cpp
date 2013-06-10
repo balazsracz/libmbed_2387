@@ -60,7 +60,7 @@ bool USBSerial::EP2_OUT_callback() {
 
     //we read the packet received and put it on the circular buffer
     readEP(c, &size);
-    for (int i = 0; i < size; i++) {
+    for (unsigned i = 0; i < size; i++) {
         buf.queue(c[i]);
     }
 

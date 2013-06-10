@@ -51,7 +51,7 @@ static inline void dac_write(int value) {
                   | (value << 6);
 }
 
-static inline int dac_read() {
+static inline int dac_read(void) {
     return (LPC_DAC->DACR >> 6) & 0x3FF;
 }
 

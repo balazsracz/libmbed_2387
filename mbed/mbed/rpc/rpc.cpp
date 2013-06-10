@@ -48,7 +48,7 @@ RPC::~RPC() {
 
 const rpc_method *RPC::get_rpc_methods() {
     static const rpc_method methods[] = {
-        {"delete", rpc_method_caller<RPC, &RPC::delete_self> },
+      {"delete", {rpc_method_caller<RPC, &RPC::delete_self>} },
         RPC_METHOD_END
     };
     return methods;
@@ -93,8 +93,8 @@ void RPC::clear(Arguments*, Reply*) {
 }
 
 const rpc_function RPC::_RPC_funcs[] = {
-    {"clear", &RPC::clear },
-    { "objects", &RPC::list_objs },
+    {"clear", {&RPC::clear}},
+    {"objects", {&RPC::list_objs}},
     RPC_METHOD_END
 };
 

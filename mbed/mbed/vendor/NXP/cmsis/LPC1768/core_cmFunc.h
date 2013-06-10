@@ -328,6 +328,31 @@ __attribute__( ( always_inline ) ) __STATIC_INLINE void __disable_irq(void)
   __ASM volatile ("cpsid i" : : : "memory");
 }
 
+__attribute__( ( always_inline ) ) __STATIC_INLINE unsigned long __save_and_disable_irq(void) {
+    unsigned long old,temp;
+    __asm__ __volatile__("mrs %0, PRIMASK\n"
+                         "orr %1, %0, #0x1\n"
+                         "and %0, %0, #0x1\n"
+                         "msr PRIMASK, %1"
+                         : "=r" (old), "=r" (temp)
+                         :
+                         : "memory");
+    return old;
+    // return (old & 0x80) == 0;
+}
+
+__attribute__( ( always_inline ) ) __STATIC_INLINE void __restore_irq(unsigned long old) {
+    unsigned long temp;
+    __asm__ __volatile__("mrs %0, PRIMASK\n"
+                         "bic %0, %0, #0x1\n"
+                         "orr %0, %0, %1\n"
+                         "msr PRIMASK, %0"
+                         : "=r" (temp)
+                         : "r"(old)
+                         : "memory");
+}
+
+
 
 /** \brief  Get Control Register
 

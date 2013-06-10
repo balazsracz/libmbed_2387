@@ -38,7 +38,7 @@ extern "C" {
  * Flash re-programming and the USB serial port will remain active, but the mbed program will no longer be
  * able to access the LocalFileSystem
  */
-void sleep(void);
+void mcu_sleep(void);
 
 /** Send the microcontroller to deep sleep
  *
@@ -53,7 +53,7 @@ void sleep(void);
  * Flash re-programming and the USB serial port will remain active, but the mbed program will no longer be
  * able to access the LocalFileSystem
  */
-void deepsleep(void);
+void mcu_deepsleep(void);
 
 #ifdef __cplusplus
 }

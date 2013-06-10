@@ -33,7 +33,7 @@ void RPCFunction::run(Arguments* args, Reply* r) {
 
 const rpc_method *RPCFunction::get_rpc_methods() {
     static const rpc_method rpc_methods[] = {
-        {"run", rpc_method_caller_run }, //Run using custom caller, all characters accepted in string
+        {"run", {rpc_method_caller_run} }, //Run using custom caller, all characters accepted in string
         RPC_METHOD_SUPER(RPC)
     };
     return rpc_methods;

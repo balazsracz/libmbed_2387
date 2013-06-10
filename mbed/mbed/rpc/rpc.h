@@ -25,7 +25,7 @@ namespace mbed {
 
 struct rpc_function {
     const char *name;
-    void (*function_caller)(Arguments*, Reply*);
+  union {void (*function_caller)(Arguments*, Reply*); };
 };
 
 struct rpc_class {
@@ -305,8 +305,8 @@ const struct rpc_method *rpc_super(RPC *this_ptr) {
     return static_cast<C*>(this_ptr)->C::get_rpc_methods();
 }
 
-#define RPC_METHOD_END      { NULL, NULL }
-#define RPC_METHOD_SUPER(C) { NULL, (rpc_method::method_caller_t)rpc_super<C> }
+#define RPC_METHOD_END      { NULL, {NULL} }
+#define RPC_METHOD_SUPER(C) { NULL, {(rpc_method::method_caller_t)rpc_super<C>} }
 
 } // namespace mbed
 
