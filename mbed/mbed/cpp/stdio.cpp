@@ -80,6 +80,11 @@ static void init_serial() {
 #endif
 }
 
+serial_t* init_stdio_serial() {
+  init_serial();
+  return &stdio_uart;
+}
+
 static inline int openmode_to_posix(int openmode) {
     int posix = openmode;
 #ifdef __ARMCC_VERSION

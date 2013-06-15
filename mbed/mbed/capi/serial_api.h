@@ -57,6 +57,8 @@ void serial_clear      (serial_t *obj);
 
 void serial_pinout_tx(PinName tx);
 
+serial_t* init_stdio_serial(void);
+
 #ifdef __cplusplus
 }
 #endif
