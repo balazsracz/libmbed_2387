@@ -95,8 +95,11 @@ static int i2c_status(i2c_t *obj) {
     return I2C_STAT(obj);
 }
 
+
+int i2c_wait_SI(i2c_t *obj) __attribute__((weak));
+
 // Wait until the Serial Interrupt (SI) is set
-static int i2c_wait_SI(i2c_t *obj) {
+int i2c_wait_SI(i2c_t *obj) {
     int timeout = 0;
     while (!(I2C_CONSET(obj) & (1 << 3))) {
         timeout++;
@@ -104,6 +107,10 @@ static int i2c_wait_SI(i2c_t *obj) {
     }
     return 0;
 }
+
+void i2c_init_irq(i2c_t *obj) __attribute__((weak));
+void i2c_init_irq(i2c_t *obj) {}
+
 
 static void i2c_interface_enable(i2c_t *obj) {
     I2C_CONSET(obj) = 0x40;
@@ -138,6 +145,8 @@ void i2c_init(i2c_t *obj, PinName sda, PinName scl) {
     if ((int)obj->i2c == NC) {
         error("I2C pin mapping failed");
     }
+
+    i2c_init_irq(obj);
 
     // enable power
     i2c_power_enable(obj);
