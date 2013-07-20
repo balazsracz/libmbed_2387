@@ -45,7 +45,7 @@ static const PinMap PinMap_I2C_SCL[] = {
 #define I2C_SCLL(x, val)    (x->i2c->I2SCLL = val)
 #define I2C_SCLH(x, val)    (x->i2c->I2SCLH = val)
 
-#elif defined(TARGET_LPC11U24)
+#elif defined(TARGET_LPC11U24) || defined(TARGET_LPC11Cxx)
 static const PinMap PinMap_I2C_SDA[] = {
     {P0_5, I2C_0, 1},
     {NC  , NC   , 0}
@@ -62,6 +62,9 @@ static const PinMap PinMap_I2C_SCL[] = {
 #define I2C_DAT(x)          (x->i2c->DAT)
 #define I2C_SCLL(x, val)    (x->i2c->SCLL = val)
 #define I2C_SCLH(x, val)    (x->i2c->SCLH = val)
+
+#else
+#error CPU undefined.
 #endif
 
 static const uint32_t I2C_addr_offset[2][4] = {
@@ -113,9 +116,11 @@ static void i2c_power_enable(i2c_t *obj) {
         case I2C_1: LPC_SC->PCONP |= 1 << 19; break;
         case I2C_2: LPC_SC->PCONP |= 1 << 26; break;
     }
-#elif defined(TARGET_LPC11U24)
+#elif defined(TARGET_LPC11U24)  || defined(TARGET_LPC11Cxx)
     LPC_SYSCON->SYSAHBCLKCTRL |= (1 << 5);
     LPC_SYSCON->PRESETCTRL |= 1 << 1;
+#else
+#error CPU undefined.
 #endif
 }
 
@@ -123,10 +128,12 @@ void i2c_init(i2c_t *obj, PinName sda, PinName scl) {
     // determine the SPI to use
     I2CName i2c_sda = (I2CName)pinmap_peripheral(sda, PinMap_I2C_SDA);
     I2CName i2c_scl = (I2CName)pinmap_peripheral(scl, PinMap_I2C_SCL);
-#if defined(TARGET_LPC1768) || defined(TARGET_LPC2368)
+#if defined(TARGET_LPC1768) || defined(TARGET_LPC2368) || defined(TARGET_LPC11Cxx)
     obj->i2c = (LPC_I2C_TypeDef *)pinmap_merge(i2c_sda, i2c_scl);
 #elif defined(TARGET_LPC11U24)
     obj->i2c = (LPC_I2C_Type *)pinmap_merge(i2c_sda, i2c_scl);
+#else
+#error CPU undefined.
 #endif
     if ((int)obj->i2c == NC) {
         error("I2C pin mapping failed");
@@ -172,7 +179,11 @@ void i2c_stop(i2c_t *obj) {
     i2c_clear_SI(obj);
 
     // wait for STO bit to reset
-    while(I2C_CONSET(obj) & (1 << 4));
+    while(I2C_CONSET(obj) & (1 << 4)) {
+      if (I2C_CONSET(obj) & (1 << 3)) {
+        i2c_clear_SI(obj);
+      }
+    }
 }
 
 
@@ -211,9 +222,11 @@ void i2c_frequency(i2c_t *obj, int hz) {
 #if defined(TARGET_LPC1768) || defined(TARGET_LPC2368)
     // [TODO] set pclk to /4
     uint32_t PCLK = SystemCoreClock / 4;
-#elif defined(TARGET_LPC11U24)
+#elif defined(TARGET_LPC11U24)  || defined(TARGET_LPC11Cxx)
     // No peripheral clock divider on the M0
     uint32_t PCLK = SystemCoreClock;
+#else
+#error CPU undefined.
 #endif
 
     uint32_t pulse = PCLK / (hz * 2);

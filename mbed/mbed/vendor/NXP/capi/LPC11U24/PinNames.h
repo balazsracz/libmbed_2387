@@ -29,6 +29,9 @@ typedef enum {
 
 #define PORT_SHIFT  5
 
+#ifdef TARGET_LPC11U24
+
+
 typedef enum {
     // LPC11U Pin Names
     P0_0 = 0,
@@ -149,6 +152,112 @@ typedef enum {
     CHANNEL6 = FLEX_INT6_IRQn,
     CHANNEL7 = FLEX_INT7_IRQn
 } Channel;
+
+#elif defined(TARGET_LPC11Cxx)
+
+typedef enum {
+    // LPC11C Pin Names
+
+    P0_4 = 4,
+    P0_5 = 5,
+
+    P0_7 = 7,
+
+  /*    P0_0 = 0,
+    P0_1 = 1,
+    P0_2 = 2,
+    P0_3 = 3,
+    P0_4 = 4,
+    P0_5 = 5,
+    P0_6 = 6,
+    P0_7 = 7,
+    P0_8 = 8,
+    P0_9 = 9,
+    P0_10 = 10,
+    P0_11 = 11,
+
+
+    P1_0 = 32,
+    P1_1 = 33,
+    P1_2 = 34,
+    P1_3 = 35,
+    P1_4 = 36,
+    P1_5 = 37,
+    P1_6 = 38,
+    P1_7 = 39,
+    P1_8 = 40,
+    P1_9 = 41,
+    P1_10 = 42,
+    P1_11 = 43,
+
+    P2_0 = 64,
+    P2_1 = 65,
+    P2_2 = 66,
+    P2_3 = 67,
+    P2_4 = 68,
+    P2_5 = 69,
+    P2_6 = 70,
+    P2_7 = 71,
+    P2_8 = 72,
+    P2_9 = 73,
+    P2_10 = 74,
+    P2_11 = 75,
+
+    P3_0 = 96,
+    P3_1 = 97,
+    P3_2 = 98,
+    P3_3 = 99,*/
+
+
+    // mbed DIP Pin Names
+    /*    p4  = P0_0,
+    p5  = P0_9,
+    p6  = P0_8,
+    p7  = P2_11,
+    p8  = P0_2,
+    p9  = P1_7,
+    p10 = P1_6,
+    p11 = P0_7,
+    p12 = P2_0,
+    p13 = P2_1,
+    p14 = P2_2,
+    p15 = P0_11,
+    p16 = P1_0,
+    p17 = P1_1,
+    p18 = P1_2,
+    p19 = P1_3,
+    p20 = P1_4,
+
+    // todo: needs checking form here onwards
+    p21 = P0_7,
+    p22 = P0_17,
+    p23 = P1_17,
+    p24 = P1_18,
+    p25 = P1_24,
+    p26 = P1_25,
+    p27 = P0_4,
+    p28 = P0_5,
+    p29 = P1_5,
+    p30 = P1_2,
+
+    p33 = P0_3,
+    p34 = P1_15,
+    p35 = P0_20,
+    p36 = P0_21, */
+
+    // Other mbed Pin Names
+    LED1 = P0_7,
+
+    // Not connected
+    NC = (int)0xFFFFFFFF,
+} PinName;
+
+
+
+#else
+#error CPU undefined.
+#endif
+
 
 typedef enum {
     PullUp = 2,

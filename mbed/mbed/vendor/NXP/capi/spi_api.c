@@ -88,6 +88,8 @@ static const PinMap PinMap_SPI_SSEL[] = {
     {NC   , NC   , 0}
 };
 
+#else
+#error CPU undefined.
 #endif
 
 void spi_init(spi_t *obj, PinName mosi, PinName miso, PinName sclk, PinName ssel) {
@@ -102,6 +104,8 @@ void spi_init(spi_t *obj, PinName mosi, PinName miso, PinName sclk, PinName ssel
     obj->spi = (LPC_SSP_TypeDef*)pinmap_merge(spi_data, spi_cntl);
 #elif defined(TARGET_LPC11U24)
     obj->spi = (LPC_SSPx_Type*)pinmap_merge(spi_data, spi_cntl);
+#else
+#error CPU undefined.
 #endif
     if ((int)obj->spi == NC) {
         error("SPI pinout mapping failed");
@@ -126,6 +130,8 @@ void spi_init(spi_t *obj, PinName mosi, PinName miso, PinName sclk, PinName ssel
             LPC_SYSCON->PRESETCTRL |= 1 << 2;
             break;
     }
+#else
+#error CPU undefined.
 #endif
 
     // set default format and frequency

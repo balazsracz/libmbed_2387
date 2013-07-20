@@ -31,6 +31,8 @@ void sleep(void) {
     LPC_PMU->PCON = 0x0;
 #elif defined(TARGET_LPC1768)
     LPC_SC->PCON = 0x0;
+#else
+#error CPU undefined.
 #endif
 
     // SRC[SLEEPDEEP] set to 0 = sleep
@@ -87,6 +89,8 @@ void deepsleep(void) {
 
 #elif defined(TARGET_LPC1768)
     sleep();
+#else
+#error CPU undefined.
 #endif
 }
 

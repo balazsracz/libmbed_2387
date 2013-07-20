@@ -72,6 +72,8 @@ static const PinMap PinMap_UART_RX[] = {
 };
 
 #define UART_NUM    1
+#else
+#error CPU undefined.
 #endif
 
 static uint32_t serial_irq_ids[UART_NUM] = {0};
@@ -107,6 +109,8 @@ void mbed_serial_init(serial_t *obj, PinName tx, PinName rx) {
     // disconnect USBTX/RX mapping mux, for case when switching ports
     pin_function(USBTX, 0);
     pin_function(USBRX, 0);
+#else
+#error CPU undefined.
 #endif
 
     // enable fifos and default rx trigger level
@@ -184,6 +188,8 @@ void serial_baud(serial_t *obj, int baudrate) {
 #elif defined(TARGET_LPC11U24)
     LPC_SYSCON->UARTCLKDIV = 0x1;
     uint32_t PCLK = SystemCoreClock;
+#else
+#error CPU undefined.
 #endif
 
     // First we check to see if the basic divide with no DivAddVal/MulVal
@@ -295,6 +301,8 @@ void uart3_irq(void) {uart_irq(LPC_UART3->IIR, 3);}
 
 #elif defined(TARGET_LPC11U24)
 void uart0_irq(void) {uart_irq(LPC_USART->IIR, 0);}
+#else
+#error CPU undefined.
 #endif
 
 void serial_irq_handler(serial_t *obj, uart_irq_handler handler, uint32_t id) {
@@ -313,6 +321,8 @@ void serial_irq_set(serial_t *obj, SerialIrq irq, uint32_t enable) {
         case UART_3: irq_n=UART3_IRQn; vector = (uint32_t)&uart3_irq; break;
 #elif defined(TARGET_LPC11U24)
         case UART_0: irq_n=UART_IRQn ; vector = (uint32_t)&uart0_irq; break;
+#else
+#error CPU undefined.
 #endif
     }
 

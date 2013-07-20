@@ -41,7 +41,7 @@ struct pwmout_s {
 };
 
 struct serial_s {
-    LPC_USART_Type *uart;
+    LPC_UART_TypeDef *uart;
     int index;
 };
 
@@ -50,11 +50,11 @@ struct analogin_s {
 };
 
 struct i2c_s {
-    LPC_I2C_Type *i2c;
+    LPC_I2C_TypeDef *i2c;
 };
 
 struct spi_s {
-    LPC_SSPx_Type *spi;
+    LPC_SSP_TypeDef *spi;
 };
 
 #include "gpio_object.h"

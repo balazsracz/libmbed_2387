@@ -80,10 +80,12 @@ static void init_serial() {
 #endif
 }
 
+#if DEVICE_SERIAL
 serial_t* init_stdio_serial() {
   init_serial();
   return &stdio_uart;
 }
+#endif
 
 static inline int openmode_to_posix(int openmode) {
     int posix = openmode;

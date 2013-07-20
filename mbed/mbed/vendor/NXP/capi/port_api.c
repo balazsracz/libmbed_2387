@@ -22,8 +22,10 @@
 PinName port_pin(PortName port, int pin_n) {
 #if defined(TARGET_LPC1768) || defined(TARGET_LPC2368)
     return (PinName)(LPC_GPIO0_BASE + ((port << PORT_SHIFT) | pin_n));
-#elif defined(TARGET_LPC11U24)
+#elif defined(TARGET_LPC11U24) || defined(TARGET_LPC11Cxx)
     return (PinName)((port << PORT_SHIFT) | pin_n);
+#else
+#error CPU undefined.
 #endif
 }
 
@@ -46,6 +48,8 @@ void port_init(port_t *obj, PortName port, int mask, PinDirection dir) {
 
     obj->reg_mpin = &LPC_GPIO->MPIN[port];
     obj->reg_dir = &LPC_GPIO->DIR[port];
+#else
+#error CPU undefined.
 #endif
     uint32_t i;
     // The function is set per pin: reuse gpio logic
@@ -80,6 +84,8 @@ void port_write(port_t *obj, int value) {
     *obj->reg_mpin = value;
 #elif defined(TARGET_LPC1768) || defined(TARGET_LPC2368)
     *obj->reg_out = (*obj->reg_in & ~obj->mask) | (value & obj->mask);
+#else
+#error CPU undefined.
 #endif
 }
 
@@ -88,6 +94,8 @@ int port_read(port_t *obj) {
     return (*obj->reg_mpin);
 #elif defined(TARGET_LPC1768) || defined(TARGET_LPC2368)
     return (*obj->reg_in & obj->mask);
+#else
+#error CPU undefined.
 #endif
 }
 

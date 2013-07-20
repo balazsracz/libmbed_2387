@@ -29,7 +29,12 @@
 #elif defined(TARGET_LPC11U24)
 #define US_TICKER_TIMER          ((LPC_CTxxBx_Type *)LPC_CT32B1_BASE)
 #define US_TICKER_TIMER_IRQn     TIMER_32_1_IRQn
-
+#elif defined(TARGET_LPC11Cxx)
+#define US_TICKER_TIMER          ((LPC_TMR_TypeDef *)LPC_CT32B1_BASE)
+#define US_TICKER_TIMER_IRQn     TIMER_32_1_IRQn
+#define irq_handler TIMER32_1_IRQHandler
+#else
+#error CPU undefined.
 #endif
 
 static int us_ticker_running = 0;
@@ -42,10 +47,12 @@ static inline void us_ticker_init(void) {
     US_TICKER_TIMER->CTCR = 0x0; // timer mode
     uint32_t PCLK = SystemCoreClock / 4;
 
-#elif defined(TARGET_LPC11U24)
+#elif defined(TARGET_LPC11U24) || defined(TARGET_LPC11Cxx)
     LPC_SYSCON->SYSAHBCLKCTRL |= (1<<10); // Clock TIMER_1
     uint32_t PCLK = SystemCoreClock;
 
+#else
+#error CPU undefined.
 #endif
     US_TICKER_TIMER->TCR = 0x2;  // reset
 
@@ -110,7 +117,10 @@ void irq_handler(void) {
 void us_ticker_set_handler(ticker_event_handler handler) {
     event_handler = handler;
 
+#ifndef TARGET_LPC11Cxx
     NVIC_SetVector(US_TICKER_TIMER_IRQn, (uint32_t)irq_handler);
+#else
+#endif
     NVIC_EnableIRQ(US_TICKER_TIMER_IRQn);
 }
 

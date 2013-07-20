@@ -31,6 +31,11 @@ uint32_t gpio_set(PinName pin) {
              (pin == P0_13) ||
              (pin == P0_14)) ? (1) : (0);
     pin_function(pin, f);
+#elif defined(TARGET_LPC11Cxx)
+    // TODO(bracz) check this
+    pin_function(pin, 0);
+#else
+#error CPU undefined.
 #endif
     return (1 << ((int)pin & 0x1F));
 }
@@ -56,6 +61,11 @@ void gpio_init(gpio_t *obj, PinName pin, PinDirection direction) {
     obj->reg_clr = &LPC_GPIO->CLR[port];
     obj->reg_in  = &LPC_GPIO->PIN[port];
     obj->reg_dir = &LPC_GPIO->DIR[port];
+#elif  defined(TARGET_LPC11Cxx)
+    while(1);
+    // TODO(bracz) check this
+#else
+#error CPU undefined.
 #endif
 
     gpio_dir(obj, direction);

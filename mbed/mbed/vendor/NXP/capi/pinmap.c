@@ -27,6 +27,20 @@
 #define LPC_IOCON1_BASE (LPC_IOCON_BASE + 0x60)
 #endif
 
+#if defined(TARGET_LPC11Cxx)
+__IO uint32_t* iocon_reg(PinName pin) {
+  switch (pin) {
+  case P0_4: return &LPC_IOCON->PIO0_4;
+  case P0_5: return &LPC_IOCON->PIO0_5;
+  case P0_7: return &LPC_IOCON->PIO0_7;
+  default:
+    return NULL;
+  }
+}
+
+#endif
+
+
 void pin_function(PinName pin, int function) {
     if (pin == (uint32_t)NC) return;
 
@@ -47,6 +61,13 @@ void pin_function(PinName pin, int function) {
 
     // pin function bits: [2:0] -> 111 = (0x7)
     *reg = (*reg & ~0x7) | (function & 0x7);
+#elif defined(TARGET_LPC11Cxx)
+    __IO uint32_t *reg = iocon_reg(pin);
+
+    // pin function bits: [2:0] -> 111 = (0x7)
+    *reg = (*reg & ~0x7) | (function & 0x7);
+#else
+#error CPU undefined.
 #endif
 }
 
@@ -75,14 +96,19 @@ void pin_mode(PinName pin, PinMode mode) {
         PINCONARRAY->PINMODE[index] |= (uint32_t)mode << offset;
     }
 
-#elif defined(TARGET_LPC11U24)
-    uint32_t pin_number = (uint32_t)pin;
+#elif defined(TARGET_LPC11U24) || defined(TARGET_LPC11Cxx)
     uint32_t drain = ((uint32_t) mode & (uint32_t) OpenDrain) >> 2;
 
-    // Open drain mode is not available on LPC2368
+#if defined(TARGET_LPC11U24)
+    uint32_t pin_number = (uint32_t)pin;
     __IO uint32_t *reg = (pin_number < 32) ?
             (__IO uint32_t*)(LPC_IOCON0_BASE + 4 * pin_number) :
             (__IO uint32_t*)(LPC_IOCON1_BASE + 4 * (pin_number - 32));
+#elif defined(TARGET_LPC11Cxx)
+    __IO uint32_t *reg = iocon_reg(pin);
+#else
+#error CPU undefined.
+#endif
     uint32_t tmp = *reg;
 
     // pin mode bits: [4:3] -> 11000 = (0x3 << 3)
@@ -94,5 +120,7 @@ void pin_mode(PinName pin, PinMode mode) {
     tmp |= drain << 10;
 
     *reg = tmp;
+#else
+#error CPU undefined.
 #endif
 }

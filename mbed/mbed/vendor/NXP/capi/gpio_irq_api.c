@@ -26,6 +26,8 @@
 
 #elif defined(TARGET_LPC11U24)
 #define CHANNEL_NUM    8
+#else
+#error CPU undefined.
 #endif
 
 static uint32_t channel_ids[CHANNEL_NUM] = {0};
@@ -108,6 +110,8 @@ void gpio_irq4(void) {handle_interrupt_in(4);}
 void gpio_irq5(void) {handle_interrupt_in(5);}
 void gpio_irq6(void) {handle_interrupt_in(6);}
 void gpio_irq7(void) {handle_interrupt_in(7);}
+#else
+#error CPU undefined.
 #endif
 
 int gpio_irq_init(gpio_irq_t *obj, PinName pin, gpio_irq_handler handler, uint32_t id) {
@@ -173,13 +177,15 @@ int gpio_irq_init(gpio_irq_t *obj, PinName pin, gpio_irq_handler handler, uint32
     }
     NVIC_SetVector((IRQn_Type)obj->ch, (uint32_t)channels_irq);
     NVIC_EnableIRQ((IRQn_Type)obj->ch);
+#else
+#error CPU undefined.
 #endif
     return 0;
 }
 
 void gpio_irq_free(gpio_irq_t *obj) {
     channel_ids[obj->ch] = 0;
-#if defined(TARGET_LPC11U24)
+#if defined(TARGET_LPC11U24) || defined(TARGET_LPC11Cxx)
     LPC_SYSCON->STARTERP0 &= ~(1 << obj->ch);
 #endif
 }
@@ -250,6 +256,8 @@ void gpio_irq_set(gpio_irq_t *obj, gpio_irq_event event, uint32_t enable) {
             LPC_GPIO_PIN_INT->IENF &= ~ch_bit;
         }
     }
+#else
+#error CPU undefined.
 #endif
 }
 

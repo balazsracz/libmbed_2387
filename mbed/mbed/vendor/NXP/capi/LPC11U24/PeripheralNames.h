@@ -23,7 +23,7 @@ extern "C" {
 #endif
 
 typedef enum {
-    UART_0 = (int)LPC_USART_BASE
+    UART_0 = (int)LPC_UART_BASE
 } UARTName;
 
 typedef enum {

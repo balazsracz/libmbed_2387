@@ -51,7 +51,7 @@ static const PinMap PinMap_ADC[] = {
 #   define ADC_RANGE    ADC_12BIT_RANGE
 #endif
 
-#elif defined(TARGET_LPC11U24)
+#elif defined(TARGET_LPC11U24) || defined(TARGET_LPC11Cxx)
 static const PinMap PinMap_ADC[] = {
     {P0_11, ADC0_0, 0x02},
     {P0_12, ADC0_1, 0x02},
@@ -68,6 +68,8 @@ static const PinMap PinMap_ADC[] = {
 #define LPC_IOCON1_BASE (LPC_IOCON_BASE + 0x60)
 
 #define ADC_RANGE    ADC_10BIT_RANGE
+#else
+#error CPU undefined.
 #endif
 
 void analogin_init(analogin_t *obj, PinName pin) {
@@ -99,7 +101,7 @@ void analogin_init(analogin_t *obj, PinName pin) {
                   | (0 << 24)     // START: 0 = no start
                   | (0 << 27);    // EDGE: not applicable
 
-#elif defined(TARGET_LPC11U24)
+#elif defined(TARGET_LPC11U24) || defined(TARGET_LPC11Cxx)
     // Power up ADC
     LPC_SYSCON->PDRUNCFG &= ~ (1 << 4);
     LPC_SYSCON->SYSAHBCLKCTRL |= ((uint32_t)1 << 13);
@@ -118,6 +120,8 @@ void analogin_init(analogin_t *obj, PinName pin) {
                 | (clkdiv << 8) // max of 4.5MHz
                 | (0 << 16)     // BURST = 0, software controlled
                 | ( 0 << 17 );  // CLKS = 0, not applicable
+#else
+#error CPU undefined.
 #endif
     pinmap_pinout(pin, PinMap_ADC);
 }
@@ -138,7 +142,7 @@ static inline uint32_t adc_read(analogin_t *obj) {
     // Stop conversion
     LPC_ADC->ADCR &= ~(1 << 24);
 
-#elif defined(TARGET_LPC11U24)
+#elif defined(TARGET_LPC11U24) || defined(TARGET_LPC11Cxx)
     // Select the appropriate channel and start conversion
     LPC_ADC->CR &= ~0xFF;
     LPC_ADC->CR |= 1 << (int)obj->adc;
@@ -152,12 +156,16 @@ static inline uint32_t adc_read(analogin_t *obj) {
 
     // Stop conversion
     LPC_ADC->CR &= ~(1 << 24);
+#else
+#error CPU undefined.
 #endif
 
 #if defined(TARGET_LPC1768)
     return (data >> 4) & ADC_RANGE; // 12 bit
-#elif defined(TARGET_LPC2368) || defined (TARGET_LPC11U24)
+#elif defined(TARGET_LPC2368) || defined (TARGET_LPC11U24) || defined(TARGET_LPC11Cxx)
     return (data >> 6) & ADC_RANGE; // 10 bit
+#else
+#error CPU undefined.
 #endif
 }
 
@@ -190,8 +198,10 @@ uint16_t analogin_read_u16(analogin_t *obj) {
 
 #if defined(TARGET_LPC1768)
     return (value << 4) | ((value >> 8) & 0x000F); // 12 bit
-#elif defined(TARGET_LPC2368) || defined(TARGET_LPC11U24)
+#elif defined(TARGET_LPC2368) || defined(TARGET_LPC11U24) || defined(TARGET_LPC11Cxx)
     return (value << 6) | ((value >> 4) & 0x003F); // 10 bit
+#else
+#error CPU undefined.
 #endif
 }
 

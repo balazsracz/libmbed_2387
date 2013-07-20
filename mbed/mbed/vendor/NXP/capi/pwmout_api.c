@@ -105,6 +105,8 @@ static LPC_CTxxBx_Type *Timers[4] = {
 };
 
 static unsigned int pwm_clock_mhz;
+#else
+#error CPU undefined.
 #endif
 
 void pwmout_init(pwmout_t* obj, PinName pin) {
@@ -152,6 +154,8 @@ void pwmout_init(pwmout_t* obj, PinName pin) {
     timer->MCR = 1 << 10;
 
     pwm_clock_mhz = SystemCoreClock / 1000000;
+#else
+#error CPU undefined.
 #endif
     // default to 20ms: standard for servos, and fine for e.g. brightness control
     pwmout_period_ms(obj, 20);
@@ -194,6 +198,8 @@ void pwmout_write(pwmout_t* obj, float value) {
     timer->TCR = TCR_RESET;
     timer->MR[tid.mr] = t_off;
     timer->TCR = TCR_CNT_EN;
+#else
+#error CPU undefined.
 #endif
 }
 
@@ -207,6 +213,8 @@ float pwmout_read(pwmout_t* obj) {
     LPC_CTxxBx_Type *timer = Timers[tid.timer];
     v = (float)(timer->MR3 - timer->MR[tid.mr]) / (float)(timer->MR3);
 
+#else
+#error CPU undefined.
 #endif
 
     return (v > 1.0) ? (1.0) : (v);
@@ -263,6 +271,8 @@ void pwmout_period_us(pwmout_t* obj, int us) {
     }
     timer->TCR = TCR_CNT_EN;
 
+#else
+#error CPU undefined.
 #endif
 }
 
@@ -303,6 +313,8 @@ void pwmout_pulsewidth_us(pwmout_t* obj, int us) {
     timer->MR[tid.mr] = t_off;
     timer->TCR = TCR_CNT_EN;
 
+#else
+#error CPU undefined.
 #endif
 }
 
