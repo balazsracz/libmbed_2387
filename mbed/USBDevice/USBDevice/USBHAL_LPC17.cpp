@@ -213,11 +213,12 @@ static void SIEconnect(void) {
     SIEsetDeviceStatus(status | SIE_DS_CON);
 }
 
-
-static void SIEdisconnect(void) {
+extern "C" {
+void SIEdisconnect(void) {
     // Disconnect USB device
     uint8_t status = SIEgetDeviceStatus();
     SIEsetDeviceStatus(status & ~SIE_DS_CON);
+}
 }
 
 
