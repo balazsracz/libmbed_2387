@@ -187,11 +187,14 @@ void i2c_stop(i2c_t *obj) {
     i2c_conset(obj, 0, 1, 0, 0);
     i2c_clear_SI(obj);
 
+    int i = 0;
     // wait for STO bit to reset
     while(I2C_CONSET(obj) & (1 << 4)) {
       if (I2C_CONSET(obj) & (1 << 3)) {
         i2c_clear_SI(obj);
       }
+      // If more than about 10 bits time is gone, then just ignore that the stop condition has not appeared yet.
+      if (++i > 500) return;
     }
 }
 
