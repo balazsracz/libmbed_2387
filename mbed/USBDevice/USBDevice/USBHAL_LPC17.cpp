@@ -249,6 +249,11 @@ uint32_t USBHAL::endpointReadcore(uint8_t endpoint, uint8_t *buffer) {
     uint32_t data = 0;
     uint8_t offset;
 
+    uint8_t ep_status = SIEselectEndpoint(endpoint);
+    if (!(ep_status & 1)) {
+      return 0;
+    }
+
     LPC_USB->USBCtrl = LOG_ENDPOINT(endpoint) | RD_EN;
     while (!(LPC_USB->USBRxPLen & PKT_RDY));
 
@@ -460,13 +465,26 @@ EP_STATUS USBHAL::endpointRead(uint8_t endpoint, uint32_t maximumSize) {
     return EP_PENDING;
 }
 
+bool IsEpPending() {
+  return epComplete & EP(EPBULK_OUT);
+}
+
+void SetEpPending() {
+  epComplete |= EP(EPBULK_OUT);
+}
+
+
+
 EP_STATUS USBHAL::endpointReadResult(uint8_t endpoint, uint8_t * buffer, uint32_t *bytesRead) {
 
     //for isochronous endpoint, we don't wait an interrupt
+  /*
     if ((endpoint >> 1) % 3 || (endpoint >> 1) == 0) {
-        if (!(epComplete & EP(endpoint)))
+      if (!(epComplete & EP(endpoint))) {
+        abort();
             return EP_PENDING;
-    }
+      }
+      }*/
     
     *bytesRead = endpointReadcore(endpoint, buffer);
     epComplete &= ~EP(endpoint);
