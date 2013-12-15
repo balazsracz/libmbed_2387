@@ -395,6 +395,14 @@ USBHAL::USBHAL(void) {
     instance = this;
     NVIC_SetVector(USB_IRQn, (uint32_t)&_usbisr);
 
+    #ifdef TARGET_LPC1768
+    // This sets the priority of the USB interrupt to be below the RTOS
+    // kernel's mask. This will effectively mask USB interrupts when the kernel
+    // is in a critical section. That's needed because the ISR callbacks use
+    // the RTOS API.
+    NVIC_SetPriority(USB_IRQn, 0xd0 >> (8-__NVIC_PRIO_BITS));
+    #endif
+
     // Enable interrupts for device events and EP0
     LPC_USB->USBDevIntEn = EP_SLOW | DEV_STAT | FRAME;
     enableEndpointEvent(EP0IN);
