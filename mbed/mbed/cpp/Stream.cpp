@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-#define __STDC_VERSION__ 199901
-
 #include "Stream.h"
 
 #include <cstdarg>

@@ -95,6 +95,9 @@ void CAN::setup_interrupt(void) {
     _can.dev->MOD &= ~1;
     NVIC_SetVector(CAN_IRQn, (uint32_t) &can_irq);
     NVIC_EnableIRQ(CAN_IRQn);
+#ifdef TARGET_LPC1768    
+    NVIC_SetPriority(CAN_IRQn, 0xb0 >> (8-__NVIC_PRIO_BITS));
+#endif
 }
 
 void CAN::remove_interrupt(void) {
