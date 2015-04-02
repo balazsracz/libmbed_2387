@@ -62,8 +62,24 @@ void gpio_init(gpio_t *obj, PinName pin, PinDirection direction) {
     obj->reg_in  = &LPC_GPIO->PIN[port];
     obj->reg_dir = &LPC_GPIO->DIR[port];
 #elif  defined(TARGET_LPC11Cxx)
-    while(1);
-    // TODO(bracz) check this
+    int gpionum = ((int) pin) >> 5;
+    int pinnum = ((int) pin) & 0x1f;
+    LPC_GPIO_TypeDef* lpc = 0;
+    switch(gpionum) {
+      case 0: lpc = LPC_GPIO0; break;
+      case 1: lpc = LPC_GPIO1; break;
+      case 2: lpc = LPC_GPIO2; break;
+      case 3: lpc = LPC_GPIO3; break;
+      default: {
+        extern void abort(void); abort();
+      }
+    }
+    obj->reg_dir = &lpc->DIR;
+    obj->reg_set = &lpc->MASKED_ACCESS[1<<pinnum];
+    // TODO(bracz) this is not strictly speaking true. You have to write 0 here
+    // to clear the pin state.
+    obj->reg_clr = &lpc->MASKED_ACCESS[1<<pinnum];
+    obj->reg_in = &lpc->DATA;
 #else
 #error CPU undefined.
 #endif
