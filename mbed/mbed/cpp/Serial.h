@@ -124,8 +124,8 @@ public:
     static void _irq_handler(uint32_t id, SerialIrq irq_type);
 
 protected:
-    virtual int _getc();
-    virtual int _putc(int c);
+    int _getc() override;
+    int _putc(int c) override;
 
     serial_t        _serial;
     FunctionPointer _irq[2];

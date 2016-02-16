@@ -170,7 +170,7 @@ class USBMouseKeyboard: public USBHID, public Stream
         * @param c character to be sent
         * @returns true if there is no error, false otherwise
         */
-        virtual int _putc(int c);
+        int _putc(int c) override;
         
         /**
         * Control media keys
@@ -195,14 +195,14 @@ class USBMouseKeyboard: public USBHID, public Stream
         *
         * @returns pointer to the report descriptor
         */
-        virtual uint8_t * reportDesc();
+        uint8_t * reportDesc() override;
         
         /*
         * Called when a data is received on the OUT endpoint. Useful to switch on LED of LOCK keys
         *
         * @returns if handle by subclass, return true
         */
-        virtual bool EP1_OUT_callback();
+        bool EP1_OUT_callback() override;
         
         
     private:
@@ -214,7 +214,7 @@ class USBMouseKeyboard: public USBHID, public Stream
         uint8_t lock_status;
         
         //dummy otherwise it doesn't compile (we must define all methods of an abstract class)
-        virtual int _getc() { return -1;}
+        int _getc() override { return -1;}
 };
 
 #endif

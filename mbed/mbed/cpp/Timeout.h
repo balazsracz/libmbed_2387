@@ -51,7 +51,7 @@ namespace mbed {
 class Timeout : public Ticker {
 
 protected:
-    virtual void handler();
+    void handler() override;
 };
 
 } // namespace mbed

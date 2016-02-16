@@ -106,7 +106,7 @@ public:
 
 protected:
     void setup(unsigned int t);
-    virtual void handler();
+    void handler() override;
 
     unsigned int _delay;
     FunctionPointer _function;

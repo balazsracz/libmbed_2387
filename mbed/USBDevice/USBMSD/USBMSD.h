@@ -129,41 +129,41 @@ protected:
     *
     * @returns pointer to the string product descriptor
     */
-    virtual uint8_t * stringIproductDesc();
+    uint8_t * stringIproductDesc() override;
 
     /*
     * Get string interface descriptor
     *
     * @returns pointer to the string interface descriptor
     */
-    virtual uint8_t * stringIinterfaceDesc();
+    uint8_t * stringIinterfaceDesc() override;
 
     /*
     * Get configuration descriptor
     *
     * @returns pointer to the configuration descriptor
     */
-    virtual uint8_t * configurationDesc();
+    uint8_t * configurationDesc() override;
 
     /*
     * Callback called when a packet is received
     */
-    virtual bool EP2_OUT_callback();
+    bool EP2_OUT_callback() override;
 
     /*
     * Callback called when a packet has been sent
     */
-    virtual bool EP2_IN_callback();
+    bool EP2_IN_callback() override;
 
     /*
     * Set configuration of device. Add endpoints
     */
-    virtual bool USBCallback_setConfiguration(uint8_t configuration);
+    bool USBCallback_setConfiguration(uint8_t configuration) override;
 
     /*
     * Callback called to process class specific requests
     */
-    virtual bool USBCallback_request();
+    bool USBCallback_request() override;
 
 
 private:

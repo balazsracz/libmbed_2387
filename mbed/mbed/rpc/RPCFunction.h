@@ -45,7 +45,7 @@ public:
      */
     void run(Arguments* args, Reply* r);
 
-    virtual const struct rpc_method *get_rpc_methods();
+    const struct rpc_method *get_rpc_methods() override;
 
 private:
     void (*_ftr)(Arguments*, Reply*);

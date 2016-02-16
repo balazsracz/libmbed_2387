@@ -128,7 +128,7 @@ public:
     * @param c character to be sent
     * @returns true if there is no error, false otherwise
     */
-    virtual int _putc(int c);
+    int _putc(int c) override;
 
     /**
     * Control media keys
@@ -143,14 +143,14 @@ public:
     *
     * @returns pointer to the report descriptor
     */
-    virtual uint8_t * reportDesc();
+    uint8_t * reportDesc() override;
 
     /*
     * Called when a data is received on the OUT endpoint. Useful to switch on LED of LOCK keys
     *
     * @returns if handle by subclass, return true
     */
-    virtual bool EP1_OUT_callback();
+    bool EP1_OUT_callback() override;
 
     /**
     * Read status of lock keys. Useful to switch-on/off leds according to key pressed. Only the first three bits of the result is important:
@@ -168,11 +168,11 @@ protected:
     *
     * @returns pointer to the configuration descriptor
     */
-    virtual uint8_t * configurationDesc();
+    uint8_t * configurationDesc() override;
 
 private:
     //dummy otherwise it doesn,t compile (we must define all methods of an abstract class)
-    virtual int _getc() {
+    int _getc() override {
         return -1;
     };
 

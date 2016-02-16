@@ -228,12 +228,12 @@ public:
 
 
 protected:
-    virtual void busReset(void);
-    virtual void EP0setupCallback(void);
-    virtual void EP0out(void);
-    virtual void EP0in(void);
-    virtual void connectStateChanged(unsigned int connected);
-    virtual void suspendStateChanged(unsigned int suspended);
+    void busReset(void) override;
+    void EP0setupCallback(void) override;
+    void EP0out(void) override;
+    void EP0in(void) override;
+    void connectStateChanged(unsigned int connected) override;
+    void suspendStateChanged(unsigned int suspended) override;
     uint8_t * findDescriptor(uint8_t descriptorType);
     CONTROL_TRANSFER * getTransferPtr(void);
     

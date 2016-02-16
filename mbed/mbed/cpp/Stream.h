@@ -37,13 +37,13 @@ public:
     operator std::FILE*() {return _file;}
 
 protected:
-    virtual int close();
-    virtual ssize_t write(const void* buffer, size_t length);
-    virtual ssize_t read(void* buffer, size_t length);
-    virtual off_t lseek(off_t offset, int whence);
-    virtual int isatty();
-    virtual int fsync();
-    virtual off_t flen();
+    int close() override;
+    ssize_t write(const void* buffer, size_t length) override;
+    ssize_t read(void* buffer, size_t length) override;
+    off_t lseek(off_t offset, int whence) override;
+    int isatty() override;
+    int fsync() override;
+    off_t flen() override;
 
     virtual int _putc(int c) = 0;
     virtual int _getc() = 0;
