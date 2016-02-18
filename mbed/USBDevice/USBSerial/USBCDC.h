@@ -45,28 +45,28 @@ protected:
     *
     * @returns pointer to the device descriptor
     */
-    virtual uint8_t * deviceDesc();
+    uint8_t * deviceDesc() override;
     
     /*
     * Get string product descriptor
     *
     * @returns pointer to the string product descriptor
     */
-    virtual uint8_t * stringIproductDesc();
+    uint8_t * stringIproductDesc() override;
     
     /*
     * Get string interface descriptor
     *
     * @returns pointer to the string interface descriptor
     */
-    virtual uint8_t * stringIinterfaceDesc();
+    uint8_t * stringIinterfaceDesc() override;
     
     /*
     * Get configuration descriptor
     *
     * @returns pointer to the configuration descriptor
     */
-    virtual uint8_t * configurationDesc();
+    uint8_t * configurationDesc() override;
     
     /*
     * Send a buffer
@@ -110,8 +110,8 @@ protected:
     bool readEP_NB(uint8_t * buffer, uint32_t * size);
     
 protected:
-    virtual bool USBCallback_request();
-    virtual bool USBCallback_setConfiguration(uint8_t configuration);
+    bool USBCallback_request() override;
+    bool USBCallback_setConfiguration(uint8_t configuration) override;
     volatile bool terminal_connected;
 
 };

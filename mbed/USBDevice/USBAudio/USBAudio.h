@@ -155,7 +155,7 @@ protected:
     * @param configuration Number of the configuration
     * @returns true if class handles this request
     */
-    virtual bool USBCallback_setConfiguration(uint8_t configuration);
+    bool USBCallback_setConfiguration(uint8_t configuration) override;
 
     /*
     * Called by USBDevice on Endpoint0 request. Warning: Called in ISR context
@@ -164,28 +164,28 @@ protected:
     *
     * @returns true if class handles this request
     */
-    virtual bool USBCallback_request();
+    bool USBCallback_request() override;
 
     /*
     * Get string product descriptor
     *
     * @returns pointer to the string product descriptor
     */
-    virtual uint8_t * stringIproductDesc();
+    uint8_t * stringIproductDesc() override;
 
     /*
     * Get string interface descriptor
     *
     * @returns pointer to the string interface descriptor
     */
-    virtual uint8_t * stringIinterfaceDesc();
+    uint8_t * stringIinterfaceDesc() override;
 
     /*
     * Get configuration descriptor
     *
     * @returns pointer to the configuration descriptor
     */
-    virtual uint8_t * configurationDesc();
+    uint8_t * configurationDesc() override;
 
     /*
      * Called by USBDevice layer. Set interface/alternate of the device.
@@ -194,7 +194,7 @@ protected:
      * @param alternate Number of the alternate to be configured
      * @returns true if class handles this request
      */
-    virtual bool USBCallback_setInterface(uint16_t interface, uint8_t alternate);
+    bool USBCallback_setInterface(uint16_t interface, uint8_t alternate) override;
 
     /*
     * Called by USBDevice on Endpoint0 request completion
@@ -206,22 +206,22 @@ protected:
     * @param buf buffer received on endpoint 0
     * @param length length of this buffer
     */
-    virtual void USBCallback_requestCompleted(uint8_t * buf, uint32_t length);
+    void USBCallback_requestCompleted(uint8_t * buf, uint32_t length) override;
 
     /*
     * Callback called on each Start of Frame event
     */
-    virtual void SOF(int frameNumber);
+    void SOF(int frameNumber) override;
     
     /*
     * Callback called when a packet is received
     */
-    virtual bool EP3_OUT_callback();
+    bool EP3_OUT_callback() override;
     
     /*
     * Callback called when a packet has been sent
     */
-    virtual bool EP3_IN_callback();
+    bool EP3_IN_callback() override;
 
 private:
 

@@ -64,14 +64,14 @@ public:
     * @param c character to be sent
     * @returns true if there is no error, false otherwise
     */
-    virtual int _putc(int c);
+    int _putc(int c) override;
     
     /**
     * Read a character: blocking
     *
     * @returns character read
     */
-    virtual int _getc();
+    int _getc() override;
     
     /**
     * Check the number of bytes available.
@@ -154,8 +154,8 @@ public:
     }
 
 protected:
-    virtual bool EP2_OUT_callback();
-    virtual bool EP2_IN_callback();
+    bool EP2_OUT_callback() override;
+    bool EP2_IN_callback() override;
 
 private:
     FunctionPointer rx;

@@ -33,12 +33,12 @@ public:
         n = 0;
     }
 
-    virtual int closedir() {
+    int closedir() override {
         delete this;
         return 0;
     }
 
-    virtual struct dirent *readdir() {
+    struct dirent *readdir() override {
         FileBase *ptr = FileBase::get(n);
         if (ptr == NULL) return NULL;
 
@@ -50,15 +50,15 @@ public:
         return &cur_entry;
     }
 
-    virtual off_t telldir() {
+    off_t telldir() override {
         return n;
     }
 
-    virtual void seekdir(off_t offset) {
+    void seekdir(off_t offset) override {
         n = offset;
     }
 
-    virtual void rewinddir() {
+    void rewinddir() override {
         n = 0;
     }
 };

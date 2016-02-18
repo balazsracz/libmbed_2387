@@ -167,12 +167,12 @@ public:
         info.fileID = 0;
     }
 
-    virtual int closedir() {
+    int closedir() override {
         delete this;
         return 0;
     }
 
-    virtual struct dirent *readdir() {
+    struct dirent *readdir() override {
         if (xffind("*", &info)!=0) {
             return NULL;
         }
@@ -180,15 +180,15 @@ public:
         return &cur_entry;
     }
 
-    virtual void rewinddir() {
+    void rewinddir() override {
         info.fileID = 0;
     }
 
-    virtual off_t telldir() {
+    off_t telldir() override {
         return info.fileID;
     }
 
-    virtual void seekdir(off_t offset) {
+    void seekdir(off_t offset) override {
         info.fileID = offset;
     }
 };

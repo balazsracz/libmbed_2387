@@ -31,19 +31,19 @@ class LocalFileHandle : public FileHandle {
 public:
     LocalFileHandle(FILEHANDLE fh);
 
-    virtual int close();
+    int close() override;
 
-    virtual ssize_t write(const void *buffer, size_t length);
+    ssize_t write(const void *buffer, size_t length) override;
 
-    virtual ssize_t read(void *buffer, size_t length);
+    ssize_t read(void *buffer, size_t length) override;
 
-    virtual int isatty();
+    int isatty() override;
 
-    virtual off_t lseek(off_t position, int whence);
+    off_t lseek(off_t position, int whence) override;
 
-    virtual int fsync();
+    int fsync() override;
 
-    virtual off_t flen();
+    off_t flen() override;
 
 protected:
     FILEHANDLE _fh;
@@ -91,9 +91,9 @@ public:
 
     }
 
-    virtual FileHandle *open(const char* name, int flags);
-    virtual int remove(const char *filename);
-    virtual DirHandle *opendir(const char *name);
+    FileHandle *open(const char* name, int flags) override;
+    int remove(const char *filename) override;
+    DirHandle *opendir(const char *name) override;
 };
 
 } // namespace mbed

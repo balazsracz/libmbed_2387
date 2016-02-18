@@ -78,28 +78,28 @@ public:
     
     
 protected:
-    virtual bool EP2_OUT_callback();
-    virtual bool USBCallback_setConfiguration(uint8_t configuration);
+    bool EP2_OUT_callback() override;
+    bool USBCallback_setConfiguration(uint8_t configuration) override;
     /*
     * Get string product descriptor
     *
     * @returns pointer to the string product descriptor
     */
-    virtual uint8_t * stringIproductDesc();
+    uint8_t * stringIproductDesc() override;
     
     /*
     * Get string interface descriptor
     *
     * @returns pointer to the string interface descriptor
     */
-    virtual uint8_t * stringIinterfaceDesc();
+    uint8_t * stringIinterfaceDesc() override;
     
     /*
     * Get configuration descriptor
     *
     * @returns pointer to the configuration descriptor
     */
-    virtual uint8_t * configurationDesc();
+    uint8_t * configurationDesc() override;
 
 private:
     void (*midi_evt)(MIDIMessage);

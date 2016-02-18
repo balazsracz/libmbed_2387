@@ -190,7 +190,7 @@ class USBMouse: public USBHID
         *
         * @returns pointer to the report descriptor
         */
-        virtual uint8_t * reportDesc();
+        uint8_t * reportDesc() override;
 
     protected:
         /*
@@ -198,7 +198,7 @@ class USBMouse: public USBHID
         *
         * @returns pointer to the configuration descriptor
         */
-        virtual uint8_t * configurationDesc();
+        uint8_t * configurationDesc() override;
         
     private:
         MOUSE_TYPE mouse_type;
