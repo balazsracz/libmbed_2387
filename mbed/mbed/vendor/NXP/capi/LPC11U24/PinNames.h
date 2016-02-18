@@ -158,12 +158,12 @@ typedef enum {
 typedef enum {
     // LPC11C Pin Names
 
-    P0_4 = 4,
+  /* P0_4 = 4,
     P0_5 = 5,
 
-    P0_7 = 7,
+    P0_7 = 7,*/
 
-  /*    P0_0 = 0,
+    P0_0 = 0,
     P0_1 = 1,
     P0_2 = 2,
     P0_3 = 3,
@@ -206,7 +206,7 @@ typedef enum {
     P3_0 = 96,
     P3_1 = 97,
     P3_2 = 98,
-    P3_3 = 99,*/
+    P3_3 = 99,
 
 
     // mbed DIP Pin Names
